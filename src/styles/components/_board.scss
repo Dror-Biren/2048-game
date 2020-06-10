@@ -1,0 +1,33 @@
+$cell-size: 106px;
+
+.board-container {
+   display: flex;
+   justify-content: center;
+}
+
+.board {
+   background: #bbada0;
+   border-radius: 4px;
+   padding: 7px;
+}
+
+
+.board-row {
+   display: flex;
+}
+
+.board-cell {
+   width: $cell-size;
+   height: $cell-size;
+   line-height: $cell-size;
+   font-size: 35px;
+   margin: 7px;
+   border-radius: 4px;
+   text-align: center;
+}
+
+
+.gameNumber {
+   padding: 0;
+   margin: 0;
+}
