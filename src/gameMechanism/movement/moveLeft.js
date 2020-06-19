@@ -1,34 +1,30 @@
-import { boardHeight, boardWidth } from '../../appConsts';
+import { boardHeight } from '../../appConsts';
+import { getInitMoveObj, getBoardWithoutSpaces, handleIfMerging } from './moveUtils';
 
-export default (board) => {
-   const boardStep1 = [];
+export default board => {
+   const moveObj = getInitMoveObj();
+   const boardWithoutSpaces = getBoardWithoutSpaces(board, true);
+
    for (let i = 0; i < boardHeight; i++) {
-      boardStep1[i] = [];
+      let mergingAmount = 0;
+      let prvWasMerging = false;
+      let cell;
+      for (let j = 0; cell=boardWithoutSpaces[i][j]; j++) {
+         let isMerging;
+         if(!prvWasMerging)
+            isMerging = handleIfMerging(boardWithoutSpaces, moveObj, i, j, true);
 
-      for (let j = 0; j < boardWidth; j++)
-         if (board[i][j])
-            boardStep1[i].push(board[i][j]);
+         const cellNewPos = '' + i + (j - mergingAmount);
+         moveObj.addMovement(cell, cellNewPos, isMerging);
+
+         if (isMerging)
+            mergingAmount++;  
+
+         prvWasMerging = isMerging;
+      }
    }
 
-   for (let i = 0; i < boardHeight; i++)
-      for (let j = 0; j < boardStep1[i].length - 1; j++)
-         if (boardStep1[i][j] === boardStep1[i][j + 1]) {
-            boardStep1[i][j] *= 2;
-            boardStep1[i][j + 1] = null;
-         }
-
-   const finalBoard = [];
-   for (let i = 0; i < boardHeight; i++) {
-      finalBoard[i] = [];
-      for (let j = 0; j < boardStep1[i].length; j++)
-         if (boardStep1[i][j])
-            finalBoard[i].push(boardStep1[i][j]);
-   }
-
-   for (let i = 0; i < boardHeight; i++) 
-      for (let j = finalBoard[i].length; j < boardWidth; j++)
-         finalBoard[i][j] = null;
-
-   //console.log(finalBoard);
-   return finalBoard;
+   return moveObj;
 }
+
+

@@ -1,7 +1,48 @@
-export const getCellStyle = value => ({
-   background: backgroundColor(value),
-   color: textColor(value)
-});
+import { boardMovementTime } from '../../appConsts';
+
+export const getCellStyle = ({ 
+      value, 
+      position, 
+      transitionProperty, 
+      size, 
+      margin, 
+      fontSize
+   }) => {
+   const [top, left] = getDistances(position, size, margin);
+   const cellSize = size + "px";
+
+   return {
+      top,
+      left,
+      width: cellSize,
+      height: cellSize,
+      lineHeight: cellSize,
+
+      transitionProperty,
+      transitionDuration: `${boardMovementTime}ms`,
+
+      background: backgroundColor(value),
+      color: textColor(value),
+      fontSize: fontSizeByNumLength(value, fontSize),
+      
+   }
+};
+
+function getDistances(position, cellSize, margin) {
+   const positionIndexToDistance = index => {
+      const positionDistance = index * (cellSize + 2 * margin);
+      return margin + positionDistance + 'px';
+   };
+
+   return [...position].map(positionIndexToDistance);
+}
+
+function fontSizeByNumLength(num, fontSize) {
+   num = '' + Math.max(num, 10);
+   return (fontSize * 2 / num.length) + 'px';
+}
+
+
 
 function backgroundColor(value) {
    switch (value) {
@@ -13,48 +54,22 @@ function backgroundColor(value) {
       case 64: return "#f65e3b";
       case 128: return "#edcf72";
       case 256: return "#edcc61";
-      case 512: return "#FFFEC9";
-      case 1024: return "#FFFEC9";
-      case 2048: return "#FFFEC9";
-      case 4096: return "#FFFEC9";
-      default: return "rgba(238,228,218,.35)";
+      case 512: return "#edcc61";
+      case 1024: return "#edcc61";
+      case 2048: return "#edcc61";
+      case 4096: return "#edcc61";
+      default: return "rgba(0,0,0,0)";
    }
 }
 
 function textColor(value) {
-   if ([2,4].includes(value))
+   if ([2, 4].includes(value))
       return "#776e65";
 
-   if ([8,16,32,64,128,256].includes(value))
-      return "#f9f6f2";
+   //if ([8, 16, 32, 64, 128, 256].includes(value))
+   return "#f9f6f2";
+
 }
 
-/*
-export const cellColor = value => {
-   const colors = {
-      2: "#eee4da",
-      4: "#ede0c8",
-      8: "#f2b179",
-      16: "#f59563",
-      32: "#f67c5f",
-      64: "#f65e3b",
-      128: "#edcf72",
-      256: "#edcc61",
-      512: "#FFFEC9",
-      1024: "#FFFEC9",
-      2048: "#FFFEC9",
-      4096: "#FFFEC9"
-   };
-
-   const textColors = {
-      2: "#776e65",
-      8: "#f9f6f2",
-   }
-
-   if (colors[value])
-      return colors[value];
-   return "rgba(238,228,218,.35)";
-}
-*/
 
 

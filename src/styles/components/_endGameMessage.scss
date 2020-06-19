@@ -1,0 +1,16 @@
+.endGameMessage {
+   h1 {
+      text-shadow: 0 0 10px white;
+   }
+
+   z-index: 1;
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   
+   height: 100%;
+   justify-items: center;
+   justify-content: center;
+   align-items: center;
+}
+

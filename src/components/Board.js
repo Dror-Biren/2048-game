@@ -1,47 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCellStyle } from '../styles/components/cellStyle';
+import EndOfGameMessage from './EndOfGameMessage';
+import BoardContent from './BoardContent';
+import BoardBackground from './BoardBackground';
 
 
-export const Board = ({board}) => {
-   let keyIndex = 0;
+export const Board = ({ isGameOver, padding }) => {
+   const endGameMessege = (
+      isGameOver &&
+      <EndOfGameMessage />
+   );
 
-   const creatJsxCell = (value) => {
-      return (
-         <td
-            key={keyIndex++}
-            className="board-cell"
-            style={getCellStyle(value)}>
-            <h2 className="gameNumber">
-               {value}
-            </h2>
-         </td>
-      );
+   const boardStyle = {
+      opacity: isGameOver ? 0.5 : 1,
+      padding
    };
 
-   const creatJsxRow = (row) => (
-      <tr
-         className="board-row"
-         key={keyIndex++}>
-         {row.map(creatJsxCell)}
-      </tr>
-   );
-
    return (
-      <table className="board-container">
-         <tbody className="board">
-            {board.map(creatJsxRow)}
-         </tbody>
-      </table>
-   );
+      <div className="board-container">
+         {endGameMessege}
+         <div
+            className="board"
+            style={boardStyle}>
+            <BoardContent />
+            <BoardBackground />
+         </div>
+
+      </div>
+   )
 };
 
 const mapStateToProps = (state) => ({
-   board: state.game.board
+   isGameOver: state.game.isGameOver,
+   padding: state.sizes.cell.margin
 });
 
 export default connect(mapStateToProps)(Board);
+
+
+/*
+const cellsBackground = board.map(createRowBackground);
+
+const createCellBackground = (value, index) => (
+   <div
+      key={index}
+      className="board-cell-background"
+   />
+);
+
+const createRowBackground = (row, index) => (
+   <div
+      className="board-row-background"
+      key={index}>
+      {row.map(createCellBackground)}
+   </div>
+);
+*/
 
 
 

@@ -1,44 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
-import moveLeft from './movement/moveLeft';
-import moveRight from './movement/moveRight';
-import moveUp from './movement/moveUp';
-import moveDown from './movement/moveDown';
-import addRandomCell from './addRandomCell';
+import getAllMovesResults from './movement/getAllMoves';
+
+import { endGame, setBoard, animateMovement } from '../actions/game';
+import { boardMovementTime } from '../appConsts';
+import { setBoardSize } from '../utils';
 
 
-import { setBoard, startNewGame } from '../actions/game';
-import { setBoardSize } from '../appConsts';
 
-
-export const HandleArrowKeysClick = ({ board, setBoard }) => {
+export const HandleArrowKeysClick = (props) => {
+   const allMovesResults = getAllMovesResults(props);
+   if(!allMovesResults) 
+      props.endGame(); 
+   
+   const [isKeysDisabled, setIsKeysDisabled] = useState(false); 
    return (
       <KeyboardEventHandler
+         isDisabled={isKeysDisabled}
          handleKeys={['left', 'right', 'up', 'down', 'space']}
          onKeyEvent={handleClick}
       />
    );
 
    function handleClick(key) {
-      if (key === 'space') {
-         setBoardSize();
-         return props.startNewGame();
-      }
+      setIsKeysDisabled(true);
+      setTimeout(() => setIsKeysDisabled(false), boardMovementTime * 1.1);
 
-      const boardAfterMoved = moveBoardByKey(key);
-      const finalBoard = addRandomCell(boardAfterMoved);
-      setBoard(finalBoard);
-   }
+      if (key === 'space')
+         return setBoardSize();
 
-   function moveBoardByKey(key) {
-      switch(key) {
-         case 'left': return moveLeft(board); 
-         case 'right': return moveRight(board); 
-         case 'up': return moveUp(board); 
-         case 'down': return moveDown(board);     
-      }
+      const moveResult = allMovesResults[key];
+      if (moveResult)
+         moveResult.execute();
    }
 };
 
@@ -49,8 +44,20 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-   setBoard: (newBoard) => dispatch(setBoard(newBoard)),
-   startNewGame: () => dispatch(startNewGame())
+   setBoard: (newBoard, scoreAddition, newCellsPos) => {
+      dispatch(setBoard(newBoard, scoreAddition, newCellsPos))
+   },
+   animateMovement: (posChanges) => dispatch(animateMovement(posChanges)),
+   endGame: () => dispatch(endGame())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HandleArrowKeysClick);
+
+/*
+import getTestBoard from './movement/getTestBoard';
+
+ if (key === 't')
+   return props.setBoard(getTestBoard(), 0);
+
+   handleKeys={['left', 'right', 'up', 'down', 'space']}
+*/

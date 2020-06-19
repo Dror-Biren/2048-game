@@ -1,6 +1,6 @@
 import { boardHeight, boardWidth, getCreatedAloneCell_Value } from '../appConsts';
 
-export function getNewGameState() {
+export function getNewGame_Board() {
    const initalNumbersPositions = getInitalNumbersPositions();
    
    const board = [];
@@ -14,10 +14,7 @@ export function getNewGameState() {
       }
    }
 
-   return {
-      board,
-      score: 0
-   };
+   return board;
 }
 
 function getInitalNumbersPositions() {

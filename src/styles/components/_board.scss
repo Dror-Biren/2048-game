@@ -1,33 +1,85 @@
-$cell-size: 106px;
+
 
 .board-container {
    display: flex;
    justify-content: center;
+   position: relative;
 }
 
 .board {
    background: #bbada0;
    border-radius: 4px;
-   padding: 7px;
 }
 
 
-.board-row {
+.board-row-background {
    display: flex;
 }
 
-.board-cell {
-   width: $cell-size;
-   height: $cell-size;
-   line-height: $cell-size;
-   font-size: 35px;
-   margin: 7px;
+.board-cell-background {
+   background-color: rgba(238,228,218,.35);
    border-radius: 4px;
+}
+
+.cell-content {
+   position: absolute;
+   font-weight: 600;
+
+   margin: 0;
+   padding: 0;
    text-align: center;
 }
 
-
-.gameNumber {
-   padding: 0;
-   margin: 0;
+.cells-content-container {
+   position: relative;
 }
+
+
+.new-cell-animation {
+   animation: newCell 400ms forwards;
+}
+
+@keyframes newCell {
+   0% {
+      opacity: 0.3;
+      transform: scale(0);
+   }
+
+   25% {
+      transform: scale(1.07);
+   }
+
+   50% {
+      transform: scale(0.93);
+   }
+
+   75% {
+      transform: scale(1.03);
+   }
+
+   100% {
+      transform: scale(1);
+      opacity: 1;
+   }
+ }
+
+ .cell-atNewGame {
+   animation: cell-newGame 0.5s forwards;
+ }
+
+ @keyframes cell-newGame {
+   0% {
+      transform: scale(0) rotate(0deg);
+   }
+
+   50% {
+      //transform: rotate(180deg);
+      background-color: rgb(131, 131, 131);
+   }
+
+   100% {
+      transform: scale(1) rotate(360deg);
+   }
+ }
+   
+ 

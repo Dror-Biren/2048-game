@@ -1,6 +1,6 @@
-@import './base/settings';
 @import './base/base';
 
 @import './components/board';
-@import './components/header';
-@import './components/rules';
+@import './components/endGameMessage';
+@import './components/headerTitle';
+@import './components/headerSubtitle';

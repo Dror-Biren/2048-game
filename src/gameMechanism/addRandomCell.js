@@ -1,6 +1,8 @@
 import { boardHeight, boardWidth, getCreatedAloneCell_Value } from '../appConsts';
 
 export default board => {
+   let scoreAddition;
+
    const allEmptyPositions = [];
    for (let i = 0; i < boardHeight; i++)
       for (let j = 0; j < boardWidth; j++)
@@ -10,8 +12,8 @@ export default board => {
    if (allEmptyPositions.length > 0) {
       const randomEmptyPositionIndex = Math.floor(Math.random() * allEmptyPositions.length);
       const { i, j } = allEmptyPositions[randomEmptyPositionIndex];
-      board[i][j] = getCreatedAloneCell_Value();
-   }
+      board[i][j] = scoreAddition = getCreatedAloneCell_Value();
 
-   return board;
+      return ''+i+j;
+   }
 }

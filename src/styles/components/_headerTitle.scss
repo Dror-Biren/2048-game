@@ -1,0 +1,61 @@
+.gameTitle {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 20px;
+}
+
+.gameTitle-text {
+   font-family: clear sans,helvetica neue,Arial,sans-serif;
+   font-weight: 700;
+   margin: 0;
+}
+
+.scores-container {
+   color: #776e65;
+   display: flex;
+   float: right;
+   text-align: right;
+}
+
+.score-container {
+   position: relative;
+}
+
+.score {
+   font-family: clear sans,helvetica neue,Arial,sans-serif;
+   position: relative;
+   display: inline-block;
+   background: #bbada0;
+   
+   //height: 53px;
+   //line-height: 47px;
+   font-weight: 700;
+   border-radius: 4px;
+   
+   text-align: center;
+
+   p {
+      color: #eee4da;
+   }
+
+   h3 {
+      color: #fff;
+   }
+}
+
+.scoreAddition {
+   //border: 1px solid red;
+   position: absolute;
+   z-index: 1;
+   font-size: 28px;
+   animation: additionScore 0.9s forwards;
+   //width: 100%;
+}
+
+@keyframes additionScore {
+   100% {
+      opacity: 0;
+      transform: translateY(-50px);
+   }
+ }

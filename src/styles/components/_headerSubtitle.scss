@@ -1,0 +1,37 @@
+
+.subtitle {
+   display: flex;
+   justify-content: space-between;
+}
+
+
+.subtitle-texts {
+   h3, p {
+      margin: 0;
+   }
+
+   p {
+      letter-spacing: 0.8px;
+      padding-right: 10px;
+   }
+}
+
+.restart-button {
+   font-weight: 700;
+   background: #8f7a66;
+   border: none;
+   border-radius: 4px;
+   
+   text-decoration: none;
+   color: #f9f6f2;
+   display: block;
+   text-align: center;
+   float: right;
+
+   &::after {
+      border: none;
+   }
+}
+
+
+
