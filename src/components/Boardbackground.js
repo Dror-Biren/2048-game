@@ -13,7 +13,7 @@ export default () => {
             <RowBackground />
          </div>
       );
-   return boardBackground; 
+   return boardBackground;
 }
 
 function RowBackground() {
