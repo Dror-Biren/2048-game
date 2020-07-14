@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import EndOfGameMessage from './EndOfGameMessage';
 import BoardContent from './BoardContent';
-import BoardBackground from './BoardBackground';
+import BoardBackground from './Board-Background';
 
 
 export const Board = ({ isGameOver, padding }) => {
